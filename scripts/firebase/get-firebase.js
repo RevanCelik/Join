@@ -7,8 +7,8 @@
  * @module get-firebase
  */
 
-import { database, auth, BASE_URL } from './firebase.js';
-import { ref, onValue } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
+import { database, auth } from './firebase.js';
+import { ref, onValue, get } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
 import { renderContactsList } from '../../member/js/contacts.js';
 
 let contacts = {};
@@ -72,7 +72,7 @@ export async function loadData(onContactsLoaded) {
 }
 
 /**
- * Loads tasks from the Firebase Realtime Database via fetch.
+ * Loads tasks from the Firebase Realtime Database using the authenticated SDK.
  *
  * Returns an empty object when no task data exists.
  *
@@ -80,10 +80,6 @@ export async function loadData(onContactsLoaded) {
  * @returns {Promise<Object<string, Object>>} Tasks indexed by task id.
  */
 export async function loadTasks() {
-  const response = await fetch(`${BASE_URL}tasks.json`);
-  const data = await response.json();
-  if (!data) {
-    return {};
-  }
-  return data;
+  const snapshot = await get(ref(database, 'tasks'));
+  return snapshot.val() || {};
 }

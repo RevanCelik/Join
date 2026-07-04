@@ -2,7 +2,7 @@
 *.env
 .env*
 !example.env
-firebase.js
+/firebase.js
 env.*
 .DS_Store
 .htaccess
