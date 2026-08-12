@@ -1,128 +1,150 @@
 # Join
 
-Join ist eine webbasierte Kanban-Board-Anwendung für die Organisation von Aufgaben, Kontakten und Team-Workflows. Das Projekt bietet eine komplette Task-Management-Oberfläche mit Login, Gästebereich, Aufgabenverwaltung, Drag-and-Drop-Board, Kontaktverwaltung und einer Übersichtsdashboard-Seite. Die Anwendung nutzt Firebase Authentication für die Anmeldung und Firebase Realtime Database für die Speicherung von Aufgaben und Kontakten. fileciteturn0file0 fileciteturn0file1 fileciteturn0file20
+Join ist eine webbasierte Kanban-Board-Anwendung zur Organisation von Aufgaben, Kontakten und Team-Workflows. Die App bietet Anmeldung, Gast-Login, Aufgabenverwaltung, Kontaktverwaltung, ein Drag-and-Drop-Board und eine Summary-Seite mit wichtigen Projektkennzahlen.
+
+Das Projekt wurde im Rahmen der Developer Akademie umgesetzt und nutzt Firebase fuer Authentifizierung und Datenspeicherung.
+
+## Live-Demo
+
+Die Anwendung kann hier direkt im Browser geoeffnet werden:
+
+[Live-Demo](https://join.revan-celik.de)
 
 ## Features
 
-- **Authentifizierung** mit E-Mail/Passwort und Gast-Login über Firebase Auth. Nach erfolgreichem Login werden Benutzer auf den internen Mitgliederbereich weitergeleitet. fileciteturn0file1
-- **Geschützte Member-Seiten** durch Auth-Guards, damit interne Seiten nur für angemeldete Nutzer verfügbar sind. fileciteturn0file2 fileciteturn0file3
-- **Summary-Dashboard** mit Kennzahlen zu To-do-, In-Progress-, Done-, Await-Feedback- und Urgent-Tasks sowie einer dynamischen Begrüßung. fileciteturn0file5
-- **Kanban-Board** mit den Statusspalten `todo`, `in-progress`, `await-feedback` und `done`. Aufgaben können per Drag-and-Drop zwischen den Spalten verschoben werden. fileciteturn0file12
-- **Aufgabenverwaltung** mit Erstellen, Bearbeiten und Löschen von Tasks inklusive Priorität, Kategorie, Fälligkeitsdatum, Assignees und Subtasks. fileciteturn0file7 fileciteturn0file10 fileciteturn0file50
-- **Subtask-Management** zum Anlegen, Bearbeiten, Löschen und Abhaken von Unteraufgaben. fileciteturn0file8 fileciteturn0file7
-- **Kontaktverwaltung** mit Anlegen, Bearbeiten, Löschen und Detailansicht von Kontakten. fileciteturn0file4 fileciteturn0file9
-- **Assignee-Auswahl** für Aufgaben über ein Dropdown mit Kontaktliste und Avatar-Anzeige. fileciteturn0file6
-- **Responsive UI-Komponenten** für öffentliche und geschützte Bereiche, inklusive mobiler Footer- und Overlay-Lösungen. fileciteturn0file11 fileciteturn0file13 fileciteturn0file14 fileciteturn0file15
+- Registrierung und Login mit Firebase Authentication
+- Gast-Login
+- Geschuetzter Member-Bereich
+- Kanban-Board mit den Spalten:
+  - To do
+  - In Progress
+  - Await Feedback
+  - Done
+- Aufgaben erstellen, bearbeiten, loeschen und verschieben
+- Drag-and-Drop fuer Statuswechsel auf dem Board
+- Aufgaben mit Titel, Beschreibung, Faelligkeitsdatum, Prioritaet, Kategorie, zugewiesenen Kontakten und Subtasks
+- Kontaktverwaltung mit Erstellen, Bearbeiten und Loeschen
+- Kontakte koennen Aufgaben zugewiesen werden
+- Summary-Seite mit Aufgabenstatistiken
+- Responsive Layout fuer Desktop und mobile Ansichten
 
 ## Tech Stack
 
-- **Frontend:** HTML, CSS, JavaScript (ES Modules)
-- **Backend / BaaS:** Firebase Authentication, Firebase Realtime Database
-- **Hosting-kompatibel:** Statisches Frontend mit Firebase-Anbindung
-
-Die Firebase-Konfiguration sowie der Zugriff auf Authentifizierung und Datenbank werden zentral in `firebase.js` initialisiert und exportiert. fileciteturn0file20
+- HTML
+- CSS
+- JavaScript
+- Firebase Authentication
+- Firebase Realtime Database
 
 ## Projektstruktur
 
 ```text
-join/
-├── index.html
-├── member/
-│   ├── js/
-│   │   ├── board.js
-│   │   ├── add-task.js
-│   │   ├── add-task-assignees.js
-│   │   ├── add-task-subtasks.js
-│   │   ├── subtask.js
-│   │   ├── contacts.js
-│   │   ├── contacts-render.js
-│   │   ├── member-script.js
-│   │   ├── member-templates.js
-│   │   └── summary.js
-├── public/
-│   └── js/
-│       ├── login.js
-│       ├── signup.js
-│       ├── public-script.js
-│       └── public-templates.js
-└── scripts/
-    └── firebase/
-        ├── firebase.js
-        ├── get-firebase.js
-        ├── push-task.js
-        └── push-contact.js
+Join/
+|-- index.html
+|-- login/
+|   |-- auth-check.js
+|   |-- auth-guard.js
+|   `-- login.js
+|-- member/
+|   |-- add-task.html
+|   |-- board.html
+|   |-- contacts.html
+|   |-- summary.html
+|   |-- css/
+|   `-- js/
+|-- public/
+|   |-- signup.html
+|   |-- css/
+|   `-- js/
+|-- scripts/
+|   `-- firebase/
+|       |-- firebase.js
+|       |-- get-firebase.js
+|       |-- push-contact.js
+|       `-- push-task.js
+|-- styles/
+|-- assets/
+`-- README.md
 ```
 
-## Zentrale Funktionen
+## Firebase Setup
 
-### Login und Registrierung
-Benutzer können sich per E-Mail und Passwort anmelden oder als Gast fortfahren. Zusätzlich unterstützt das Projekt eine Registrierung, bei der nach erfolgreicher Kontoerstellung auch ein Kontakt-Datensatz gespeichert wird. fileciteturn0file1 fileciteturn0file45 fileciteturn0file47
+Fuer dieses Projekt wird ein Firebase-Projekt mit folgenden Diensten benoetigt:
 
-### Aufgabenmanagement
-Neue Aufgaben enthalten Titel, Beschreibung, Due Date, Priorität, Kategorie, Assignees, Subtasks und Status. Beim Bearbeiten können bestehende Subtasks und Zuweisungen aktualisiert werden. Das Speichern erfolgt in Firebase. fileciteturn0file10 fileciteturn0file7 fileciteturn0file50
+1. Firebase Authentication
+2. E-Mail/Passwort als Anmeldemethode
+3. Firebase Realtime Database
 
-### Board und Workflow
-Das Board rendert Aufgaben nach Status, zeigt Fortschritt für Subtasks an und unterstützt eine Suche über Task-Inhalte. Statusänderungen per Drag-and-Drop werden direkt in Firebase synchronisiert. fileciteturn0file12
+Die Firebase-Konfiguration liegt in:
 
-### Kontakte
-Kontakte werden aus Firebase geladen, alphabetisch gruppiert dargestellt und können in Overlays hinzugefügt oder bearbeitet werden. Kontakte werden außerdem für die Aufgaben-Zuweisung verwendet. fileciteturn0file4 fileciteturn0file9 fileciteturn0file46
-
-## Voraussetzungen
-
-- Ein Firebase-Projekt mit aktivierter **Authentication**
-- Eine **Realtime Database** in Firebase
-- Eine lokale Entwicklungsumgebung oder ein statischer Webserver
-
-## Einrichtung
-
-1. Repository klonen.
-2. Projekt lokal öffnen.
-3. Firebase-Projekt anlegen oder bestehende Konfiguration verwenden.
-4. Firebase-Konfiguration in `scripts/firebase/firebase.js` prüfen oder anpassen.
-5. Anwendung über einen lokalen Server starten.
-
-## Beispiel für gespeicherte Task-Daten
-
-```json
-{
-  "title": "Implement board search",
-  "description": "Add search support for kanban tasks",
-  "due_date": "2026-05-10",
-  "priority": "medium",
-  "assigned_to": {
-    "0": "Alex Example",
-    "1": "Sam Example"
-  },
-  "category": "technical-task",
-  "subtasks": {
-    "Subtask1": {
-      "status": false,
-      "title": "Create search input"
-    }
-  },
-  "status": "todo",
-  "createdAt": "2026-04-23T12:00:00.000Z"
-}
+```text
+scripts/firebase/firebase.js
 ```
 
-Die Struktur orientiert sich an der Task-Erstellung im Projektcode. fileciteturn0file10
+Wenn du dieses Repository forkst oder klonst, solltest du ein eigenes Firebase-Projekt erstellen und die Firebase-Konfiguration durch deine eigenen Projektwerte ersetzen.
+
+Die Realtime Database verwendet hauptsaechlich folgende Bereiche:
+
+```text
+contacts
+tasks
+users
+```
+
+Damit angemeldete Nutzer Aufgaben und Kontakte laden und speichern koennen, muessen die Datenbankregeln Lese- und Schreibzugriff fuer authentifizierte Nutzer erlauben.
+
+## Installation und Start
+
+1. Repository klonen:
+
+```bash
+git clone <repository-url>
+```
+
+2. Projektordner oeffnen.
+
+3. Firebase-Projekt in der Firebase Console erstellen.
+
+4. Firebase Authentication aktivieren.
+
+5. Anmeldemethode E-Mail/Passwort aktivieren.
+
+6. Firebase Realtime Database erstellen.
+
+7. Firebase-Konfiguration in folgender Datei eintragen:
+
+```text
+scripts/firebase/firebase.js
+```
+
+8. Projekt mit einem lokalen Webserver starten, zum Beispiel mit der VS Code Extension "Live Server".
+
+9. Anwendung im Browser oeffnen:
+
+```text
+http://127.0.0.1:5500/
+```
+
+## Nutzung
+
+Nach dem Start koennen Nutzer ein Konto erstellen, sich mit einem bestehenden Konto anmelden oder den Gast-Login verwenden.
+
+Im Member-Bereich koennen Nutzer:
+
+- die Summary-Seite ansehen
+- Kontakte erstellen und verwalten
+- neue Aufgaben erstellen
+- Kontakte Aufgaben zuweisen
+- Aufgaben auf dem Board verschieben
+- bestehende Aufgaben bearbeiten oder loeschen
 
 ## Hinweise
 
-- Einige Kommentare und Meldungen im Projekt sind noch gemischt auf Deutsch und Englisch.
-- Es gibt bereits einzelne `FIXME`- und `CHECK`-Hinweise im Code, die auf mögliche Refactorings oder UI-Anpassungen hinweisen. fileciteturn0file11 fileciteturn0file15
-- Die aktuelle README-Basis beschreibt Join nur sehr kurz als „business kanbanborad application“ und wurde hier zu einer vollständigen Projektbeschreibung erweitert. fileciteturn0file0
-
-## Weiterentwicklung
-
-Sinnvolle nächste Schritte für das Projekt wären:
-
-- bessere Fehlerbehandlung und konsistente Nutzerhinweise
-- Bereinigung von Namensinkonsistenzen im Code
-- Trennung von UI-, Daten- und Zustandslogik
-- Tests für Kernfunktionen wie Auth, Board-Statuswechsel und Formularvalidierung
-- Bereinigung sensibler Konfigurationswerte für produktive Deployments
+- Die Anwendung ist ein statisches Frontend-Projekt und benoetigt keinen eigenen Backend-Server.
+- Firebase uebernimmt Authentifizierung und Datenspeicherung.
+- Die Firebase-Konfiguration sollte bei jedem Fork durch eigene Firebase-Daten ersetzt werden.
+- Die Datenbankregeln sollten vor einem produktiven Einsatz geprueft und abgesichert werden.
 
 ## Lizenz
 
-Noch keine Lizenz angegeben.
+Es wurde noch keine Lizenz angegeben.
